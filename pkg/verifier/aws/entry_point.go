@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"time"
 
 	awsTools "github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/ec2"
@@ -169,6 +170,9 @@ func (a *AwsVerifier) ValidateEgress(vei verifier.ValidateEgressInput) *output.O
 		securityGroupId: vei.AWS.SecurityGroupId,
 		keyPair:         vei.ImportKeyPair,
 	})
+
+	// SET WAIT AFTER EC2 CREATE - DAVID
+	time.Sleep(10 * time.Minute)
 
 	//If securitygroup was created by network-verifier, delete it as part of cleanup
 	if cleanupSecurityGroup {
